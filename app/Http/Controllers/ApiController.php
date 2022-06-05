@@ -11,7 +11,7 @@ class ApiController extends Controller
     public function getAllStudents() {
         // get all students
         $students = Student::get()->toJson(JSON_PRETTY_PRINT);
-        return response($students, 200);
+        return response($students, 200)->header('Content-Type', 'application/json');;
     }
 
     public function getStudent ( $id ) {
@@ -19,11 +19,11 @@ class ApiController extends Controller
 
         if( Student::where('id', $id )->exists() ) {
             $student = Student::where('id', $id )->get()->toJson(JSON_PRETTY_PRINT);
-            return response($student, 200);
+            return response($student, 200)->header('Content-Type', 'application/json');;
         } else {
             return response()->json([
                 'message' => 'Student not found'
-            ], 404);
+            ], 404)->header('Content-Type', 'application/json');;
         }
     }
 
@@ -36,12 +36,12 @@ class ApiController extends Controller
 
             return response()->json([
                 'message' => 'Student created successfully',
-            ]);
+            ], 200)->header('Content-Type', 'application/json');;
             
         } catch (\Exception $e ) {
             return response()->json([
                 'message' => 'Error creating student',
-            ], 400);
+            ], 400)->header('Content-Type', 'application/json');;
         }
     }
 
@@ -56,11 +56,11 @@ class ApiController extends Controller
 
             return response()->json([
                 'message' => 'Student updated successfully'
-            ], 200);
+            ], 200)->header('Content-Type', 'application/json');;
         } else {
             return response()->json([
                 'message' => 'Student not found'
-            ], 404);
+            ], 404)->header('Content-Type', 'application/json');;
         }
     }
 
@@ -73,11 +73,11 @@ class ApiController extends Controller
 
             return response()->json([
                 'message' => 'Student delete successfully'
-            ], 200);
+            ], 200)->header('Content-Type', 'application/json');
         } else {
             return response()->json([
                 'message' => 'Student not found'
-            ], 404);
+            ], 404)->header('Content-Type', 'application/json');;
         }
     }
 }
